@@ -58,7 +58,7 @@ class OSCData
 private:
     
     //friends
-	friend class OSCMessage;
+	friend class OscMessage;
     
     //should only be used while decoding
     //leaves an invalid OSCMessage with a type, but no data
