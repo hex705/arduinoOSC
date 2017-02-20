@@ -67,7 +67,7 @@ void OscUDPwifi::listen() {
 }
 
 
-
+/*
 //=============================================================================
 // NetAddress interface
 //=============================================================================
@@ -87,4 +87,4 @@ IPAddress NetAddress :: getIP (){
 int NetAddress :: getPort(){
     return destinationPort;
 }
-
+*/

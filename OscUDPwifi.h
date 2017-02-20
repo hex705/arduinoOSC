@@ -5,31 +5,11 @@
 
 
 // added this for out address in UDP
-#include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
+// adding this to move netaddress interface out for all UDP
+#include <NetAddress.h>
 
-
-//=============================================================================
-
-class NetAddress {
-    
-
- protected:
-	
-    IPAddress destinationIP;
-    int       destinationPort; 
-    
-public:
-
-    
-    NetAddress(void);
-    void set (IPAddress, int);
-    IPAddress getIP();
-    int getPort();
-
-    
-};
 
 
 
@@ -60,9 +40,6 @@ public:
 	void listen();
     
 };
-
-
-
 
 
 #endif

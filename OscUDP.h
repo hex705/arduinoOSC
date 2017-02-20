@@ -8,8 +8,10 @@
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
+// adding this to move netaddress interface out for all UDP
+#include <NetAddress.h>
 
-
+/*
 //=============================================================================
 
 class NetAddress {
@@ -31,7 +33,7 @@ public:
     
 };
 
-
+*/
 
 //=============================================================================
 class OscUDP {
