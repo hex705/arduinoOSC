@@ -290,6 +290,9 @@ public:
 	
 	//calls the function with the message as the arg if it was a full match
 	bool dispatch(const char * pattern, void (*callback)(OSCMessage &), int = 0);
+
+		//calls the function with the message as the arg if it was a full match
+	bool plug(const char * pattern, void (*callback)(OSCMessage &), int = 0);
 	
 	//like dispatch, but allows for partial matches
 	//the address match offset is sent as an argument to the callback

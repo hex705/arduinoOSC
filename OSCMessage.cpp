@@ -305,6 +305,16 @@ bool OSCMessage::fullMatch( const char * pattern, int addr_offset){
 	return (ret==3);
 }
 
+// plug is just a copy of dipatch ... using it to keep a concept alive in my class
+bool OSCMessage::plug(const char * pattern, void (*callback)(OSCMessage &), int addr_offset){
+    if (fullMatch(pattern, addr_offset)){
+        callback(*this);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool OSCMessage::dispatch(const char * pattern, void (*callback)(OSCMessage &), int addr_offset){
 	if (fullMatch(pattern, addr_offset)){
 		callback(*this);
@@ -313,6 +323,7 @@ bool OSCMessage::dispatch(const char * pattern, void (*callback)(OSCMessage &), 
 		return false;
 	}
 }
+
 
 bool OSCMessage::route(const char * pattern, void (*callback)(OSCMessage &, int), int initial_offset){
 	int match_offset = match(pattern, initial_offset);
