@@ -30,7 +30,7 @@
 #include <Print.h>
 
 
-class OSCMessage
+class OscMessage
 {
 	
 private:
@@ -109,29 +109,29 @@ public:
 =============================================================================*/
 	
 	//new constructor needs an address
-	OSCMessage (const char * _address);
+	OscMessage (const char * _address);
     //no address
     //placeholder since it's invalide OSC
-	OSCMessage();
+	OscMessage();
     
 	//can optionally accept all of the data after the address
-	//OSCMessage(const char * _address, char * types, ... );
-    //created from another OSCMessage
-    OSCMessage (OSCMessage *);
+	//OscMessage(const char * _address, char * types, ... );
+    //created from another OscMessage
+    OscMessage (OscMessage *);
 
 	//DESTRUCTOR
-	~OSCMessage();
+	~OscMessage();
 
 	//empties all of the data
-	OSCMessage& empty();
+	OscMessage& empty();
 
 /*=============================================================================
 	SETTING  DATA
 =============================================================================*/
 
-	//returns the OSCMessage so that multiple 'add's can be strung together
+	//returns the OscMessage so that multiple 'add's can be strung together
 	template <typename T> 
-	OSCMessage& add(T datum){
+	OscMessage& add(T datum){
 		//make a piece of data
 		OSCData * d = new OSCData(datum);
 		//check if it has any errors
@@ -154,7 +154,7 @@ public:
 	}
     
     //blob specific add
-    OSCMessage& add(uint8_t * blob, int length){
+    OscMessage& add(uint8_t * blob, int length){
 		//make a piece of data
 		OSCData * d = new OSCData(blob, length);
 		//check if it has any errors
@@ -178,7 +178,7 @@ public:
 
 	//sets the data at a position
 	template <typename T> 
-	OSCMessage& set(int position, T datum){
+	OscMessage& set(int position, T datum){
 		if (position < dataCount){
 			//replace the OSCData with a new one
 			OSCData * oldDatum = getOSCData(position);
@@ -204,7 +204,7 @@ public:
 	}
     
     //blob specific setter
-    OSCMessage& set(int position, uint8_t * blob, int length){
+    OscMessage& set(int position, uint8_t * blob, int length){
         if (position < dataCount){
 			//replace the OSCData with a new one
 			OSCData * oldDatum = getOSCData(position);
@@ -229,7 +229,7 @@ public:
 		return *this;
     }
     
-    OSCMessage& setAddress(const char *);
+    OscMessage& setAddress(const char *);
 
 /*=============================================================================
 	GETTING DATA
@@ -289,15 +289,15 @@ public:
 	int match( const char * pattern, int = 0);
 	
 	//calls the function with the message as the arg if it was a full match
-	bool dispatch(const char * pattern, void (*callback)(OSCMessage &), int = 0);
+	bool dispatch(const char * pattern, void (*callback)(OscMessage &), int = 0);
 
 		//calls the function with the message as the arg if it was a full match
-	bool plug(const char * pattern, void (*callback)(OSCMessage &), int = 0);
+	bool plug(const char * pattern, void (*callback)(OscMessage &), int = 0);
 	
 	//like dispatch, but allows for partial matches
 	//the address match offset is sent as an argument to the callback
 	//also room for an option address offset to allow for multiple nested routes
-	bool route(const char * pattern, void (*callback)(OSCMessage &, int), int = 0);
+	bool route(const char * pattern, void (*callback)(OscMessage &, int), int = 0);
 	
 
 
@@ -308,7 +308,7 @@ public:
 	//the number of data that the message contains
 	int size();
 	
-	//computes the number of bytes the OSCMessage occupies if everything is 32-bit aligned
+	//computes the number of bytes the OscMessage occupies if everything is 32-bit aligned
 	int bytes();
     
 /*=============================================================================
@@ -316,11 +316,11 @@ public:
  =============================================================================*/
     
     //send the message
-    OSCMessage& send(Print &p);
+    OscMessage& send(Print &p);
     
     //fill the message from a byte stream
-    OSCMessage& fill(uint8_t);
-    OSCMessage& fill(uint8_t *, int);
+    OscMessage& fill(uint8_t);
+    OscMessage& fill(uint8_t *, int);
 		
 /*=============================================================================
 	ERROR
