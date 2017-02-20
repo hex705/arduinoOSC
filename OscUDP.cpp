@@ -1,7 +1,7 @@
 #include <OscUDP.h>
 
 
-void oscEvent(OSCMessage &);
+void oscEvent(OscMessage &);
 
 
 //=============================================================================
@@ -24,12 +24,12 @@ void OscUDP::begin(EthernetUDP &u){
 }
 
 
-void OscUDP::send(OSCMessage &msg, NetAddress &na){
+void OscUDP::send(OscMessage &msg, NetAddress &na){
     OscUDP::send (msg, na.getIP(), na.getPort() );
 }
 
 
-void OscUDP::send(OSCMessage &msg, IPAddress outIp, int outPort) {
+void OscUDP::send(OscMessage &msg, IPAddress outIp, int outPort) {
 
     // SEND BASED ON THIS :
     // http://cnmat.berkeley.edu/library/oscuino/omessage
@@ -62,7 +62,7 @@ void OscUDP::listen() {
 	}
 	
 	//msgIN.reset();
-    //msgIN.~OSCMessage(); // <-- see serial for note
+    //msgIN.~OscMessage(); // <-- see serial for note
     msgIN.empty();
 
 }

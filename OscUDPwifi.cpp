@@ -1,7 +1,7 @@
 #include <OscUDPwifi.h>
 
 
-void oscEvent(OSCMessage &);
+void oscEvent(OscMessage &);
 
 
 //=============================================================================
@@ -24,12 +24,12 @@ void OscUDPwifi::begin(WiFiUDP &u){
 }
 
 
-void OscUDPwifi::send(OSCMessage &msg, NetAddress &na){
+void OscUDPwifi::send(OscMessage &msg, NetAddress &na){
     OscUDPwifi::send (msg, na.getIP(), na.getPort() );
 }
 
 
-void OscUDPwifi::send(OSCMessage &msg, IPAddress outIp, int outPort) {
+void OscUDPwifi::send(OscMessage &msg, IPAddress outIp, int outPort) {
 
     // SEND BASED ON THIS :
     // http://cnmat.berkeley.edu/library/oscuino/omessage
@@ -62,8 +62,8 @@ void OscUDPwifi::listen() {
 	}
 	
 	//msgIN.reset();
-    //msgIN.~OSCMessage(); // <-- see serial for note
-    msgIN.empty(); // using ~OSCMessage seems to block serial.. more testing needed.
+    //msgIN.~OscMessage(); // <-- see serial for note
+    msgIN.empty(); // using ~OscMessage seems to block serial.. more testing needed.
 
 }
 

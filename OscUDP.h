@@ -1,7 +1,7 @@
 #ifndef OscUDP_h 
 #define OscUDP_h
 
-#include "OSCMessage.h"
+#include "OscMessage.h"
 
 
 // added this for out address in UDP
@@ -40,7 +40,7 @@ class OscUDP {
 
 protected:
 	
-	OSCMessage msgIN;
+	OscMessage msgIN;
 	
 	EthernetUDP *udp; 
 	
@@ -56,8 +56,8 @@ public:
 	
 	void begin (EthernetUDP &);
 	
-    void send(OSCMessage &, NetAddress  &);
-    void send(OSCMessage &, IPAddress, int);
+    void send(OscMessage &, NetAddress  &);
+    void send(OscMessage &, IPAddress, int);
 
 	void listen();
     

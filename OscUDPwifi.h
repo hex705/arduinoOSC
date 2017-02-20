@@ -18,7 +18,7 @@ class OscUDPwifi {
 
 protected:
 	
-	OSCMessage msgIN;
+	OscMessage msgIN;
 	
 	WiFiUDP *udpWifi; 
 	
@@ -34,8 +34,8 @@ public:
 	
 	void begin (WiFiUDP &);
 	
-    void send(OSCMessage &, NetAddress  &);
-    void send(OSCMessage &, IPAddress, int);
+    void send(OscMessage &, NetAddress  &);
+    void send(OscMessage &, IPAddress, int);
 
 	void listen();
     

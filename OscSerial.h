@@ -1,7 +1,7 @@
 #ifndef OscSerial_h 
 #define OscSerial_h
 
-#include "OSCMessage.h"
+#include "OscMessage.h"
 
 #if defined(CORE_TEENSY)|| defined(__AVR_ATmega32U4__)
 #include <SLIPEncodedUSBSerial.h>
@@ -20,7 +20,7 @@ class OscSerial  {
 	
 
 private:
-	OSCMessage msgIN;
+	OscMessage msgIN;
 
 	#if defined(CORE_TEENSY)|| defined(__AVR_ATmega32U4__)
 	  SLIPEncodedUSBSerial *slip;
@@ -40,7 +40,7 @@ public:
 	    void begin( HardwareSerial & );
         #endif
       
-	void send( OSCMessage & ); 	
+	void send( OscMessage & ); 	
 	void listen( );
 	
 };

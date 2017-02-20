@@ -3,7 +3,7 @@
 
 
 
-void oscEvent(OSCMessage &);
+void oscEvent(OscMessage &);
 
 //=============================================================================
 // OSC_Serial Wrapper
@@ -54,7 +54,7 @@ void OscSerial::listen() {
 	
 	// change this line to make this work.
 	//msgIN.reset();  // this is the old interface... 
-	//msgIN.~OSCMessage();  // this was wrong -- but it looked good from afar.
+	//msgIN.~OscMessage();  // this was wrong -- but it looked good from afar.
      msgIN.empty();
 }
 
@@ -77,7 +77,7 @@ void OscSerial::listen() {
 }
 */
 
-void OscSerial::send(OSCMessage &msg) {
+void OscSerial::send(OscMessage &msg) {
 	msg.send(*slip);
 	slip->endPacket();
 	msg.empty();
