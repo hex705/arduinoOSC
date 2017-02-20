@@ -9,7 +9,7 @@ int netTimerInterval = 250;
 // Someone to talk to
 NetAddress destination;
 String destinationIP = "127.0.0.1";
-int destinationPort = 1200;
+int destinationPort = 12999;
 
 // font stuff
 PFont f;
@@ -18,6 +18,7 @@ PFont f;
 String addPattern ="";
 int theNumber;
 
+
 void setup() {
   size(1000,150);
     oscNet = new OscP5(this, listeningPort);
@@ -25,28 +26,30 @@ void setup() {
     destination = new NetAddress(destinationIP, destinationPort);
     
   // font stuff
-  f = createFont("SourceCodePro-Regular.vlw", 50);
+  f = createFont("SourceCodePro-Regular.vlw", 25);
   textFont(f);
-  textAlign(CENTER, CENTER);
+  textAlign(LEFT, CENTER);
   
 }
 
 void draw() {
+  background(80);
     if (millis()>= netTimerEnd) {
         sendOscNet(); // send to network destination
         netTimerEnd = millis() + netTimerInterval;
     }
+    fill(255);
+     text(addPattern+"  "+ theNumber , 100, height/4);
+     fill(theNumber);
+      rect (50,height/4-8,25,25);
 }
 
 // Listen for ALL OSC messages
 void oscEvent(OscMessage incoming) {
     // all the received messages come here
     println(incoming);
-    addPattern = incoming.addrPattern();
-     text("incoming" , 100, height/4);
-      text( addPatt, 150 , height/4+30);
-     
-    theNumber = incoming.get(0).intValue();
+    addPattern = incoming.addrPattern();    
+    theNumber = incoming.get(1).intValue();
 }
 // send network messages to destination
 void sendOscNet() {
