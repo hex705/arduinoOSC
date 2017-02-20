@@ -11,3 +11,16 @@
 //  also
 // OscMessage.reset() no longer exists
 // replace with ~OSCMessage() in .cpp wrapper files above.
+
+
+ *************
+OSCMEssage changes….
+
+ok so in addition to the class name change…  they dropped plug and renamed it dispatch.
+
+this is an epic burn as we parsed everything in arduino with plug.
+
+dispatch is plug tho so overloading dispatch with plug.
+
+
+
