@@ -62,7 +62,8 @@ void OscUDP::listen() {
 	}
 	
 	//msgIN.reset();
-    msgIN.~OSCMessage(); // <-- see serial for note
+    //msgIN.~OSCMessage(); // <-- see serial for note
+    msgIN.empty();
 
 }
 

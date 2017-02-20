@@ -62,7 +62,8 @@ void OscUDPwifi::listen() {
 	}
 	
 	//msgIN.reset();
-    msgIN.~OSCMessage(); // <-- see serial for note
+    //msgIN.~OSCMessage(); // <-- see serial for note
+    msgIN.empty(); // using ~OSCMessage seems to block serial.. more testing needed.
 
 }
 

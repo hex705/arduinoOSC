@@ -54,7 +54,8 @@ void OscSerial::listen() {
 	
 	// change this line to make this work.
 	//msgIN.reset();  // this is the old interface... 
-	msgIN.~OSCMessage();
+	//msgIN.~OSCMessage();  // this was wrong -- but it looked good from afar.
+     msgIN.empty();
 }
 
 /*
