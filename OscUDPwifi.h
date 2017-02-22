@@ -1,7 +1,7 @@
 #ifndef OscUDPwifi_h 
 #define OscUDPwifi_h
 
-#include "OSCMessage.h"
+#include "OscMessage.h"
 
 
 // added this for out address in UDP
