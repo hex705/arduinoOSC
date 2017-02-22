@@ -28,3 +28,10 @@ endTransmission	KEYWORD1
 endofTransmission KEYWORD1
 SLIPEncodedSerial KEYWORD1
 SLIPEncodedUSBSerial KEYWORD1
+OscMessage		KEYWORD1
+OscUDPwifi		KEYWORD1
+OcUDP			KEYWORD1
+OscSerial		KEYWORD1
+NetAddress		KEYWORD1
+beginUSB		KEYWORD1
+
