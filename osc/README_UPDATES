@@ -1,26 +1,34 @@
-/// this is a first successful test of OSC over udpwifi -- using esp8266 and our wrapper.
+/*
 
-// significant changes to our library needed -- also need to change templates.
-// need to update:: 
-// data   .h and .cpp
-// timing .h and .cpp
-// message  .h and .cpp
-//NOTE CNMAT MESSAGE class got renamed OSCMessage  from OscMessage
-// this change breaks our UDP and Serial wrappers for arduino but it is a quick fix.
-// all template oscEvents and oscSends need the class renamed.
-//  also
+current version (2017 -- onward)
+
+this is a first successful test of OSC over udpwifi -- using esp8266 and our wrapper.
+
+several events made update necessary -- our base osc library was from CNMAT.  This library updated
+and then CNMAT restructured (or something'd) and shut down osc dev.
+
+we grabbed latest arduino osc core from them and updated our wrapper to reflect their changes
+as well as the introduction of ESP chips since our first dev.
+
+we have updated our :
+    data   .h and .cpp
+    timing .h and .cpp
+    message  .h and .cpp
+
+NOTE CNMAT MESSAGE class got renamed OSCMessage from OscMessage
+ -- this change breaks our UDP and Serial wrappers for arduino
+
+we changed it back here to OscMessage to make all of our OLD examples work
+
 // OscMessage.reset() no longer exists
-// replace with ~OSCMessage() in .cpp wrapper files above.
+
+// replaced with ~OSCMessage() in .cpp wrapper files above and then brought reset back
 
 
  *************
 OSCMEssage changes….
 
 ok so in addition to the class name change…  they dropped plug and renamed it dispatch.
+this is an epic burn as we parsed everything in Arduino with plug.
 
-this is an epic burn as we parsed everything in arduino with plug.
-
-dispatch is plug tho so overloading dispatch with plug.
-
-
-
+dispatch is plug tho so we overloaded dispatch with plug
