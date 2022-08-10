@@ -29,7 +29,7 @@ protected:
 public:
 
 	OscUDP();
-  void begin (UDP &u) { udp = &u; }
+  void begin (UDP &u) { udp = &u; };
 
 	// common functions
 	void send(OscMessage &);
@@ -39,9 +39,6 @@ public:
 	void listen();
 
 };
-
-
-
 
 
 #endif

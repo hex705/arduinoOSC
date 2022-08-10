@@ -238,16 +238,29 @@ public:
 =============================================================================*/
 
 	int32_t getInt(int);
-    osctime_t getTime(int);
+  osctime_t getTime(int);
 
 	float getFloat(int);
 	double getDouble(int);
     bool getBoolean(int);
 
 	//return the copied string's length
+	int getString(int, char *);
+	//check that it won't overflow the passed buffer's size with a third argument
 	int getString(int, char *, int);
+	//offset and size can be defined in order to only query a part of the string
+	int getString(int, char *, int, int, int);
+
 	//returns the number of unsigned int8's copied into the buffer
+	int getBlob(int, uint8_t *);
+	//check that it won't overflow the passed buffer's size with a third argument
 	int getBlob(int, uint8_t *, int);
+	//offset and size can be defined in order to only query a part of the blob's content
+	int getBlob(int, uint8_t *, int, int, int);
+
+
+  // returns the length of blob
+	uint32_t getBlobLength(int position);
 
 	//returns the number of bytes of the data at that position
 	int getDataLength(int);

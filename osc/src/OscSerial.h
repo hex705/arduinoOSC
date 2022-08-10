@@ -7,8 +7,7 @@
 
 //=============================================================================
 class OscSerial  {
-
-
+	
 private:
 	OscMessage msgIN;
 	SLIPEncodedSerial *slip;
@@ -21,9 +20,5 @@ public:
 	void listen( );
 
 };
-
-
-
-
 
 #endif

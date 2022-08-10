@@ -6,8 +6,6 @@ void oscEvent(OscMessage &);
 // OSC_UDP Wrapper
 //=============================================================================
 
-// TODO: write similar wrapper class using the UDP interface
-// waiting to solve the blocking kink on the Serial one first
 
 OscUDP::OscUDP(){
 }
@@ -51,7 +49,7 @@ void OscUDP::listen() {
 	  	oscEvent(msgIN);
   	}
 
-	//msgIN.reset();
+	  //msgIN.reset();
     //msgIN.~OscMessage(); // <-- see serial for note
     msgIN.empty();
 

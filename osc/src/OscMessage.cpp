@@ -83,7 +83,7 @@ OscMessage::~OscMessage(){
 
 OscMessage& OscMessage::empty(){
     error = OSC_OK;
-    //free each of hte data in the array
+    //free each of the data in the array
     for (int i = 0; i < dataCount; i++){
         OSCData * datum = getOSCData(i);
         //explicitly destruct the data
@@ -96,6 +96,7 @@ OscMessage& OscMessage::empty(){
     dataCount = 0;
     decodeState = STANDBY;
     clearIncomingBuffer();
+		return *this; // trying this sd
 }
 
 // ****** NEW ADDITION *** davidb
@@ -137,8 +138,8 @@ int32_t OscMessage::getInt(int position){
 	if (!hasError()){
 		return datum->getInt();
     } else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return (int32_t)NULL;
         #else
             return -1;
         #endif
@@ -157,8 +158,8 @@ float OscMessage::getFloat(int position){
 	if (!hasError()){
 		return datum->getFloat();
     } else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return (float)NULL;
         #else
             return -1;
         #endif
@@ -170,8 +171,8 @@ double OscMessage::getDouble(int position){
 	if (!hasError()){
 		return datum->getDouble();
     } else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return (double)NULL;
         #else
             return -1;
         #endif
@@ -183,8 +184,22 @@ bool  OscMessage::getBoolean(int position){
 	if (!hasError()){
 		return datum->getBoolean();
     } else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return (bool)NULL;
+        #else
+            return -1;
+        #endif
+    }
+}
+
+
+int OscMessage::getString(int position, char * buffer){
+    OSCData * datum = getOSCData(position);
+    if (!hasError()){
+        return datum->getString(buffer, datum->bytes);
+    } else {
+        #ifndef ESPxx
+            return (int)NULL;
         #else
             return -1;
         #endif
@@ -198,27 +213,82 @@ int OscMessage::getString(int position, char * buffer, int bufferSize){
         int copyBytes = bufferSize < datum->bytes? bufferSize : datum->bytes;
 		return datum->getString(buffer, copyBytes);
     } else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return 0;
         #else
             return -1;
         #endif
     }
 }
 
-int OscMessage::getBlob(int position, uint8_t * buffer, int bufferSize){
-	OSCData * datum = getOSCData(position);
-	if (!hasError()){
+int OscMessage::getString(int position, char * buffer, int bufferSize, int offset, int size){
+    OSCData * datum = getOSCData(position);
+    if (!hasError()){
         //the number of bytes to copy is the smaller between the buffer size and the datum's byte length
         int copyBytes = bufferSize < datum->bytes? bufferSize : datum->bytes;
-		return datum->getBlob(buffer, copyBytes);
+        return datum->getString(buffer, copyBytes, offset, size);
     } else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return 0;
         #else
             return -1;
         #endif
     }
+}
+
+
+int OscMessage::getBlob(int position, uint8_t * buffer){
+    OSCData * datum = getOSCData(position);
+    if (!hasError()){
+        return datum->getBlob(buffer);
+  } else {
+    #ifndef ESPxx
+        return 0;
+    #else
+        return -1;
+    #endif
+  }
+}
+
+int OscMessage::getBlob(int position, uint8_t * buffer, int bufferSize){
+    OSCData * datum = getOSCData(position);
+    if (!hasError()){
+        return datum->getBlob(buffer, bufferSize);
+  } else {
+    #ifndef ESPxx
+        return 0;
+    #else
+        return -1;
+    #endif
+  }
+}
+
+int OscMessage::getBlob(int position, uint8_t * buffer, int bufferSize, int offset, int size){
+    OSCData * datum = getOSCData(position);
+    if (!hasError()){
+        return datum->getBlob(buffer, bufferSize, offset, size);
+  } else {
+    #ifndef ESPxx
+        return 0;
+    #else
+        return -1;
+    #endif
+  }
+}
+
+uint32_t OscMessage::getBlobLength(int position)
+{
+  OSCData * datum = getOSCData(position);
+  if (!hasError()){
+    return datum->getBlobLength();
+  } else {
+    #ifndef ESPxx
+        return 0;
+    #else
+        return -1;
+    #endif
+  }
+
 }
 
 char OscMessage::getType(int position){
@@ -226,8 +296,8 @@ char OscMessage::getType(int position){
 	if (!hasError()){
 		return datum->type;
 	} else {
-        #ifndef ESP8266
-            return NULL;
+        #ifndef ESPxx
+            return (int)NULL;
         #else
             return '\0';
         #endif
@@ -310,11 +380,11 @@ int OscMessage::match(const  char * pattern, int addr_offset){
 bool OscMessage::fullMatch( const char * pattern, int addr_offset){
 	int pattern_offset;
 	int address_offset;
-	int ret = osc_match(address + addr_offset, pattern, &address_offset, &pattern_offset);
+	int ret = osc_match(address + addr_offset, pattern, &pattern_offset, &address_offset );
 	return (ret==3);
 }
 
-// plug is just a copy of dipatch ... using it to keep a concept alive in my class
+// plug is just a copy of dispatch ... using it to keep a concept alive in my class
 bool OscMessage::plug(const char * pattern, void (*callback)(OscMessage &), int addr_offset){
     if (fullMatch(pattern, addr_offset)){
         callback(*this);
@@ -332,7 +402,6 @@ bool OscMessage::dispatch(const char * pattern, void (*callback)(OscMessage &), 
 		return false;
 	}
 }
-
 
 bool OscMessage::route(const char * pattern, void (*callback)(OscMessage &, int), int initial_offset){
 	int match_offset = match(pattern, initial_offset);
@@ -399,7 +468,7 @@ int OscMessage::bytes(){
     //padding amount
     int addrPad = padSize(addrLen);
     messageSize += addrPad;
-    //add the comma seperator
+    //add the comma separator
     messageSize += 1;
     //add the types
     messageSize += dataCount;
@@ -456,7 +525,7 @@ OscMessage& OscMessage::send(Print &p){
     while(addrPad--){
         p.write(nullChar);
     }
-    //add the comma seperator
+    //add the comma separator
     p.write((uint8_t) ',');
     //add the types
 #ifdef PAULSSUGGESTION
@@ -628,7 +697,7 @@ void OscMessage::decodeData(uint8_t incomingByte){
                         } u;
                         memcpy(u.b, incomingBuffer, 4);
                         uint32_t blobLength = BigEndian(u.i);
-                        if (incomingBufferSize == blobLength + 4){
+                        if (incomingBufferSize == (int)(blobLength + 4)){
                             set(i, incomingBuffer + 4, blobLength);
                             clearIncomingBuffer();
                             decodeState = DATA_PADDING;
@@ -713,8 +782,9 @@ void OscMessage::decode(uint8_t incomingByte){
                 }
             }
 			break;
-
-    }
+		case DONE:
+				break; // TODO: is this correct? - was missing from original code, it did this by default
+  }
 }
 
 
