@@ -1,7 +1,6 @@
 //  here is a list of todo items for this repro
 
-1. change OSCMessage class back to OscMessage.  THis is temp -- but needed for a larger framework I am using.  
-will see how much stuff that breaks.
+1. change OSCMessage class back to OscMessage.  THis is temp -- but needed for a larger framework I am using.  will see how much stuff that breaks.
 
 2. clean up examples
 

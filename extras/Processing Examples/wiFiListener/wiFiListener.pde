@@ -8,15 +8,15 @@ int netTimerInterval = 250;
 
 // Someone to talk to
 NetAddress destination;
-String destinationIP = "127.0.0.1";
-int destinationPort = 12999;
+String destinationIP = "192.168.2.186";
+int destinationPort = 12001;
 
 // font stuff
 PFont f;
 
 //global stuff to draw with
 String addPattern ="";
-int theNumber;
+int    theNumber;
 
 
 void setup() {
@@ -35,13 +35,13 @@ void setup() {
 void draw() {
   background(80);
     if (millis()>= netTimerEnd) {
-        //sendOscNet(); // send to network destination
+        sendOscNet(); // send to network destination
         netTimerEnd = millis() + netTimerInterval;
     }
     fill(255);
-     text(addPattern+"  "+ theNumber , 100, height/4);
-     fill(theNumber);
-      rect (50,height/4-8,25,25);
+    text(addPattern+"  "+ theNumber , 100, height/4);
+    fill(theNumber);
+    rect (50,height/4-8,25,25);
 }
 
 // Listen for ALL OSC messages
@@ -49,8 +49,9 @@ void oscEvent(OscMessage incoming) {
     // all the received messages come here
     println(incoming);
     addPattern = incoming.addrPattern();    
-    theNumber = incoming.get(0).intValue();
+    theNumber  = incoming.get(0).intValue();
 }
+
 // send network messages to destination
 void sendOscNet() {
     OscMessage msg = new OscMessage("/outgoingInternet");

@@ -2,6 +2,9 @@
 
 *arduinoOSC* is a fork of [OSCuino](https://github.com/CNMAT/OSC), an Open Sound Control library for Arduino and Teensy boards developed at CNMAT at the University of California, Berkeley.
 
+It was developed primarily by Yotam Mann at CNMAT where OSC was invented.
+It benefits from contributions from Adrian Freed, John MacCallum, Matt Wright and Andy Schmeder
+
 ## Why arduinoOSC?
 
 This forks provides a simplified API, focused only on the Arduino platform. It also includes a complimentary Processing library to communicate with the Arduino using OSC over the Serial port. The library is built on the excellent OscP5 by Andreas Schlegel. Both are intended to be consistent with OscP5’s usage patterns and object names.
@@ -10,9 +13,15 @@ This forks provides a simplified API, focused only on the Arduino platform. It a
 
 ## Change Log
 
+July 2024
+**ESP32** support updated
+  -- type of int across boards is an issue
+  -- on 2024 it seems esp32 ( at least ada fruit feather) is ok with arduino 16 bit int and esp 32bit int.
+  -- removed an ifndef around ints in oscdata.h and oscdata.cpp to ensure that ints compile on Uno and feather. commented in each file respectively.
+  
+
 August 2022 -
 **ESP32** support added.
-
   Send and receive OSC via serial (UNO) and UDP (Adafruit Feather huzzah32) to Node (using https://github.com/colinbdclark/osc.js/) and to Processing V3.xx (does not yet work with P4.xx+)
 
 

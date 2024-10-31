@@ -33,16 +33,24 @@ OSCData::OSCData(int32_t i){
 	data.i = i;
 }
 
+/* test in 2024 -- a hard enetered int into add() 
+ eg.     msg.add(87); // any value
+ throws: 
+ In instantiation of 'OscMessage& OscMessage::add(T) [with T = int]':
+/Users/steve.daniels/Documents/Arduino/libraries/arduinoOSC/src/OscMessage.h:136:31: error: call of overloaded 'OSCData(int&)' is ambiguous
+*/ 
+
+
 // update here see note line 48 of .h
 // moves from esp8266 only to incliude esp32
-#ifndef ESPxx
+//#ifndef ESPxx   // <--------   removed this ifndef 2024
 OSCData::OSCData(int i){
 	error = OSC_OK;
 	type = 'i';
 	bytes = 4;
 	data.i = i;
 }
-#endif
+//#endif  // <--------   removed this ifndef 2024
 
 OSCData::OSCData(unsigned int i){
 	error = OSC_OK;

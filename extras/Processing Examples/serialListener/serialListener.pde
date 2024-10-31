@@ -5,7 +5,8 @@ int serialTimerEnd;
 int serialTimerInterval = 250;
 Serial proSerial;
 
-String serialName = "/dev/cu.usbmodem1411"; // put the name of your serial port
+String serialName = "/dev/cu.usbserial-022AF090";
+///String serialName = "/dev/cu.usbmodem14327401"; // put the name of your serial port
 int baudRate = 9600; // set your baud rate
 OscSerial oscSerial;
 
@@ -28,8 +29,10 @@ void draw() {
 void oscEvent(OscMessage incoming) {
     // all the received messages come here
     println(incoming);
-    int val0 = incoming.get(0).intValue();
-    println(val0);
+    float val0 = incoming.get(0).floatValue();
+    int   val1 = incoming.get(1).intValue();
+    int   val2 = incoming.get(2).intValue();
+    println(val0 + " " + val1 + " " + val2);
 }
 
 // send OSC serial messages 

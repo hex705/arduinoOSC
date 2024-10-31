@@ -4,20 +4,21 @@ int baudRate = 9600;
 OscSerial oscSerial;
 long serialTimerEnd;
 long serialTimerInterval = 100;
+int ledPin = 13;
+
+float piFloat = 3.21;
 
 void setup() {
     Serial.begin(baudRate);
-    while (!Serial);
     oscSerial.begin(Serial);
-    pinMode(13,OUTPUT); // use builtin led to visualize data from processing
+    pinMode(ledPin,OUTPUT); // use builtin led to visualize data from processing
 
     // on the Flora or Leonardo, use Serial1 to communicate with USB and Serial to
     // communicate with a radio
 }
 
 void loop() {
-    //  Serial1.println("hi mom");
-    
+
     //  timer -- limits sends to every 100 mS 
     if (millis()>= serialTimerEnd) {
         sendOscSerial();
@@ -42,12 +43,15 @@ void oscEvent(OscMessage & msg) {
 void myFunction(OscMessage & msg) {
     // get the data out of the message
     int data = msg.getInt(0);
-    digitalWrite(13, data);
+    digitalWrite(ledPin, data);
 }
 
 // send OSC Serial messages
 void sendOscSerial() {
     OscMessage msg("/outgoingSerial"); // this could be any pattern
-    msg.add(113); // this could be any data
+      msg.add(1.23f); // the 'f' to designate float is need on esp32 (oct 2024)
+      //msg.add(piFloat); // the 'f' to designate float is need on esp32 (oct 2024)
+      msg.add(456); // this could be any data
+      msg.add(789); // this could be any data
     oscSerial.send(msg);
 }

@@ -101,12 +101,19 @@ public:
 // this is for the esp chips
 OSCData (int32_t);
 
-// if not esp NOR SAM3X8E then everyone else
-#ifndef ESPxx
-    OSCData (int);
-#endif
+OSCData (int); // ?so lines 105-108 below may not be needed in 2024? 
 
-  OSCData (unsigned int);
+// *** as of 2024 it seems that this hack is no longer needed ***
+
+// if not esp NOR SAM3X8E then everyone else
+//try comment out this ? seems eps32 can do int (16 bit) or int32
+//#ifndef ESPxx
+//    OSCData (int);
+//#endif
+
+//  ***  removing the ifndef around int -- esp are ok with int now
+
+    OSCData (unsigned int);
 	OSCData (float);
 	OSCData (double);
 	OSCData (uint8_t *, int);
